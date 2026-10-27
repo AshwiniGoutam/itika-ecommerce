@@ -1,0 +1,156 @@
+{
+  "seo": {
+    "title": "Itika E-Commerce | Marketplace Growth Partner for Amazon, Flipkart, Meesho, Myntra & AJIO",
+    "description": "Expert account management, conversion-focused listings and sales growth strategies for online sellers on Amazon, Flipkart, Meesho, Myntra and AJIO."
+  },
+  "brand": {
+    "name": "ITIKA",
+    "fullName": "Itika E-Commerce",
+    "tagline": "E-commerce growth partner",
+    "logo": "",
+    "phone": "9024831336",
+    "email": "itikauppdhayay@gmail.com",
+    "whatsapp": "919024831336",
+    "instagram": "https://instagram.com/itika.ecommerce",
+    "instagramHandle": "@itika.ecommerce"
+  },
+  "hero": {
+    "badge": "E-commerce growth partner",
+    "titleLine1": "From listings",
+    "titleLine2": "*to leadership.*",
+    "rotatingPrefix": "We grow your",
+    "rotatingSuffix": "store, end to end.",
+    "subtitle": "Account management, listings that convert and sales strategies that drive results — for sellers on India's biggest marketplaces.",
+    "ctaPrimary": "Get a free account audit",
+    "ctaSecondary": "Call us",
+    "trustText": "Sellers across India trust us with their stores",
+    "dashRevenue": "₹48.6L",
+    "dashGrowth": "+212%",
+    "dashOrders": "+1,248",
+    "dashScore": 98
+  },
+  "tape": {
+    "items": ["Amazon", "Flipkart", "Meesho", "Myntra", "AJIO", "Listings", "Sales growth", "Account support"]
+  },
+  "platforms": {
+    "title": "Expert account management, on every marketplace that matters",
+    "subtitle": "Pick a marketplace to see what we take off your plate.",
+    "items": [
+      {
+        "name": "Amazon",
+        "color": "#FF9900",
+        "logo": "",
+        "desc": "From Seller Central setup to Buy Box wins — we keep your Amazon account healthy, visible and selling.",
+        "highlights": ["Seller Central setup & brand registry", "A+ content & keyword-rich listings", "Sponsored ads management", "Account health & reinstatement support"]
+      },
+      {
+        "name": "Flipkart",
+        "color": "#2874F0",
+        "logo": "",
+        "desc": "We optimise your catalogue and pricing so your products show up — and win — in Flipkart search.",
+        "highlights": ["Catalogue upload & QC", "Smart pricing & sale events", "Flipkart ads (PLA) campaigns", "Returns & claims handling"]
+      },
+      {
+        "name": "Meesho",
+        "color": "#F43397",
+        "logo": "",
+        "desc": "High-volume, low-margin done right: we tune your Meesho catalogue for reach and repeat orders.",
+        "highlights": ["Bulk catalogue creation", "Price & shipping optimisation", "Quality score improvement", "RTO and return reduction"]
+      },
+      {
+        "name": "Myntra",
+        "color": "#FF3F6C",
+        "logo": "",
+        "desc": "Fashion sells on visuals and timing. We handle style codes, imagery and the big sale calendars.",
+        "highlights": ["Style code & size chart setup", "Image & content guidelines", "End of Reason Sale planning", "Inventory sync"]
+      },
+      {
+        "name": "AJIO",
+        "color": "#C7A15A",
+        "logo": "",
+        "desc": "Premium positioning for your brand on AJIO, with listings and campaigns that match the audience.",
+        "highlights": ["Vendor onboarding", "Premium listing content", "Campaign participation", "Order & payment reconciliation"]
+      }
+    ]
+  },
+  "services": {
+    "title": "What we do for your store",
+    "subtitle": "Three core services, run by people who live inside seller dashboards every day.",
+    "items": [
+      {
+        "icon": "ListChecks",
+        "title": "Listings",
+        "tag": "Optimised & conversion focused",
+        "desc": "Titles, bullets, keywords, images and A+ content written to rank in search and turn views into orders.",
+        "points": ["Keyword research", "SEO titles & bullets", "A+ / enhanced content", "Catalogue cleanup"]
+      },
+      {
+        "icon": "TrendingUp",
+        "title": "Sales growth",
+        "tag": "Strategies that drive results",
+        "desc": "Ads, pricing, deals and sale-event planning built around your margins — not vanity numbers.",
+        "points": ["Ads / PPC management", "Pricing strategy", "Sale event planning", "Monthly growth reports"]
+      },
+      {
+        "icon": "Headphones",
+        "title": "Account support",
+        "tag": "Reliable support, always",
+        "desc": "Account health, claims, policy issues and day-to-day operations handled so you can focus on product.",
+        "points": ["Account health monitoring", "Claims & reimbursements", "Policy & suspension help", "Dedicated account manager"]
+      }
+    ]
+  },
+  "statement": {
+    "text": "We don't just manage accounts. We build marketplace brands that rank higher, convert better and *grow every single month.*"
+  },
+  "results": {
+    "title": "Growth you can measure",
+    "subtitle": "Every number moves in one direction.",
+    "items": [
+      { "value": 5, "suffix": "", "label": "Marketplaces managed" },
+      { "value": 100, "suffix": "+", "label": "Sellers supported" },
+      { "value": 3, "suffix": "x", "label": "Average sales growth" },
+      { "value": 24, "suffix": "/7", "label": "Account support" }
+    ]
+  },
+  "process": {
+    "title": "How we grow your store",
+    "items": [
+      { "title": "Free account audit", "desc": "We review your listings, ads, pricing and account health and show you exactly where sales are leaking." },
+      { "title": "Growth plan", "desc": "You get a clear plan for each marketplace with priorities, timelines and the numbers we will move." },
+      { "title": "Optimise & launch", "desc": "We rewrite listings, fix catalogue issues, set up campaigns and get your store sale-ready." },
+      { "title": "Scale every month", "desc": "Weekly tracking, monthly reports and constant testing to push your sales higher." }
+    ]
+  },
+  "testimonials": {
+    "title": "Sellers on working with us",
+    "items": [
+      { "name": "Rohit Sharma", "role": "Home décor seller, Amazon", "quote": "Our listings finally show up on page one. Orders doubled in the first three months.", "avatar": "" },
+      { "name": "Priya Mehta", "role": "Ethnic wear brand, Myntra & AJIO", "quote": "They handled the whole Myntra onboarding and sale planning. Super responsive team.", "avatar": "" },
+      { "name": "Ankit Verma", "role": "Electronics accessories, Flipkart", "quote": "Ads were burning money before. Now every rupee is tracked and ROI is clear.", "avatar": "" },
+      { "name": "Sneha Gupta", "role": "Kidswear, Meesho", "quote": "Returns dropped and our catalogue quality score went up. Highly recommended.", "avatar": "" }
+    ]
+  },
+  "faq": {
+    "title": "Questions sellers ask us",
+    "items": [
+      { "q": "Which marketplaces do you manage?", "a": "Amazon, Flipkart, Meesho, Myntra and AJIO. We can manage one or all of them for you." },
+      { "q": "Do you help new sellers get started?", "a": "Yes. We handle registration, GST and documentation guidance, catalogue setup and your first campaigns." },
+      { "q": "What does the free audit include?", "a": "A review of your listings, keywords, pricing, ads and account health, plus a short list of the fixes that will move sales fastest." },
+      { "q": "How do you charge?", "a": "We offer monthly management plans based on the number of marketplaces and SKUs. Message us for a quote that fits your store." },
+      { "q": "Will I still have access to my seller accounts?", "a": "Always. Your accounts stay yours — we work as an extension of your team with full transparency." }
+    ]
+  },
+  "contact": {
+    "title": "Let's grow your store",
+    "subtitle": "Tell us about your business. We'll call you back with a free account audit.",
+    "revenueOptions": ["Just starting", "Under ₹1 lakh / month", "₹1–5 lakh / month", "₹5–20 lakh / month", "₹20 lakh+ / month"],
+    "buttonText": "Send my enquiry",
+    "successTitle": "Enquiry received",
+    "successMessage": "Thanks! Our team will reach out within 24 hours."
+  },
+  "footer": {
+    "about": "Itika E-Commerce helps sellers grow on Amazon, Flipkart, Meesho, Myntra and AJIO with account management, listings and sales strategy.",
+    "copyright": "Itika E-Commerce. All rights reserved."
+  }
+}

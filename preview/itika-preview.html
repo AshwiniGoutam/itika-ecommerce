@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Itika E-Commerce — website preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Unbounded:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  colors: { navy:{ DEFAULT:'#0A1A4A', deep:'#06102E', soft:'#1B2C68' }, paper:'#F3F6FB', ink:'#0F1B3D', line:'#E1E6EF', orange:{ DEFAULT:'#FF6A13', light:'#FF9A4D', dark:'#E2550A' } },
+  fontFamily: { display:['Unbounded','system-ui','sans-serif'], sans:['"Instrument Sans"','system-ui','sans-serif'] }
+}}};
+</script>
+<style type="text/tailwindcss">
+  @layer components {
+    .container-x { @apply mx-auto w-full max-w-7xl px-5 sm:px-8; }
+    .btn-primary { @apply relative inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3.5 text-[15px] font-medium text-white shadow-[0_12px_30px_-12px_rgba(255,106,19,.8)] transition-colors hover:bg-orange-dark; }
+    .btn-ghost { @apply inline-flex items-center gap-2 rounded-full border border-ink/15 bg-white px-6 py-3.5 text-[15px] font-medium text-ink transition-colors hover:border-ink/40; }
+    .h-section { @apply font-display text-3xl font-normal leading-[1.12] tracking-tight text-ink sm:text-4xl lg:text-[2.9rem]; }
+    .inp { @apply w-full rounded-xl border border-line bg-paper/70 px-4 py-3 text-[15px] text-ink outline-none transition placeholder:text-ink/35 focus:border-orange focus:bg-white focus:ring-4 focus:ring-orange/15; }
+  }
+</style>
+<style>
+  :root {
+    --bg:#FFFFFF; --fg:#0F1B3D;
+    color-scheme: light;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  /* Light design by request: dark viewers get the same light palette. */
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#FFFFFF; --fg:#0F1B3D; color-scheme: light; } }
+  :root[data-theme="dark"] { --bg:#FFFFFF; --fg:#0F1B3D; color-scheme: light; }
+  html { scroll-behavior:smooth; scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px); }
+  body { background:var(--bg); color:var(--fg); overflow-x:hidden; font-family:"Instrument Sans",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  body::before { content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:70; background:#fff; }
+  ::selection { background:#FF6A13; color:#fff; }
+  :focus-visible { outline:2px solid #FF6A13; outline-offset:3px; border-radius:8px; }
+
+  .text-orange-grad { background:linear-gradient(100deg,#FF6A13 0%,#FFAE73 50%,#FF6A13 100%); background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent; animation:shine 5s linear infinite; }
+  @keyframes shine { to { background-position:200% center; } }
+  .grid-lines { background-image:linear-gradient(rgba(10,26,74,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(10,26,74,.06) 1px,transparent 1px); background-size:72px 72px; -webkit-mask-image:radial-gradient(ellipse 70% 60% at 60% 40%,#000 20%,transparent 75%); mask-image:radial-gradient(ellipse 70% 60% at 60% 40%,#000 20%,transparent 75%); }
+  .card { background:rgba(255,255,255,.85); border:1px solid #E1E6EF; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+  .text-outline { -webkit-text-stroke:1.2px currentColor; color:transparent; }
+  @keyframes marquee { from { transform:translateX(0) } to { transform:translateX(-50%) } }
+  .marquee { animation:marquee var(--speed,36s) linear infinite; }
+  .marquee-wrap:hover .marquee { animation-play-state:paused; }
+  .barcode { background:repeating-linear-gradient(90deg,#0F1B3D 0 2px,transparent 2px 4px,#0F1B3D 4px 5px,transparent 5px 8px,#0F1B3D 8px 11px,transparent 11px 13px); }
+  @keyframes floaty { 0%,100% { transform:translateY(0) } 50% { transform:translateY(var(--f,-10px)) } }
+  .floaty { animation:floaty var(--d,5s) ease-in-out infinite; }
+  @keyframes blob1 { 0%,100% { transform:translate(0,0) } 50% { transform:translate(60px,-40px) } }
+  @keyframes blob2 { 0%,100% { transform:translate(0,0) } 50% { transform:translate(-50px,50px) } }
+  @keyframes spin { to { transform:rotate(360deg) } }
+
+  #pre { clip-path:inset(0 0 0 0); transition:clip-path .9s cubic-bezier(.76,0,.24,1); }
+  #pre.out { clip-path:inset(0 0 100% 0); }
+  .pre-ch { display:inline-block; transform:translateY(110%); transition:transform .7s cubic-bezier(.22,1,.36,1); }
+  #pre.in .pre-ch { transform:none; }
+
+  .w-mask { display:inline-block; overflow:hidden; padding-bottom:.1em; vertical-align:bottom; margin-right:.22em; }
+  .w-in { display:inline-block; transform:translateY(115%) rotate(6deg); transition:transform 1s cubic-bezier(.22,1,.36,1); }
+  .go .w-in { transform:none; }
+  .rise { opacity:0; transform:translateY(20px); transition:opacity .8s, transform .8s cubic-bezier(.22,1,.36,1); }
+  .go .rise { opacity:1; transform:none; }
+  .pop { opacity:0; transform:scale(.7) translateY(20px); transition:opacity .8s, transform .8s cubic-bezier(.22,1,.36,1); }
+  .go .pop { opacity:1; transform:none; }
+  .draw { stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset 2.2s cubic-bezier(.22,1,.36,1); }
+  .go .draw, .seen .draw { stroke-dashoffset:0; }
+  .bar { transform:scaleY(0); transform-box:fill-box; transform-origin:bottom; transition:transform .9s cubic-bezier(.22,1,.36,1); }
+  .go .bar { transform:scaleY(1); }
+  .card-in { opacity:0; transform:translateY(70px) rotate(-4deg); transition:opacity 1.1s, transform 1.1s cubic-bezier(.22,1,.36,1); }
+  .go .card-in { opacity:1; transform:none; }
+  #nav { transform:translateY(-120px); transition:transform .9s cubic-bezier(.22,1,.36,1) .8s; }
+  .go #nav { transform:none; }
+
+  .rot-word { display:inline-block; transition:transform .55s cubic-bezier(.22,1,.36,1), opacity .4s; }
+  .rot-out { transform:translateY(-100%); opacity:0; }
+  .rot-pre { transform:translateY(100%); opacity:0; transition:none; }
+
+  .svc .sweep { transform:scaleX(0); transform-origin:left; transition:transform .6s cubic-bezier(.22,1,.36,1); }
+  .svc.on .sweep { transform:scaleX(1); }
+  .svc .body { display:grid; grid-template-rows:0fr; transition:grid-template-rows .45s cubic-bezier(.22,1,.36,1); }
+  .svc.on .body { grid-template-rows:1fr; }
+  .svc .body > div { overflow:hidden; }
+  .svc .ttl, .svc .tag, .svc .ico, .svc .plus { transition:color .5s, background-color .5s, border-color .5s, transform .4s; }
+  .svc.on .ttl { color:#fff; } .svc.on .tag { color:rgba(255,255,255,.75); }
+  .svc.on .ico { background:#fff; color:#0A1A4A; } .svc.on .plus { transform:rotate(45deg); color:#fff; border-color:rgba(255,255,255,.35); }
+
+  .faq .ans { display:grid; grid-template-rows:0fr; transition:grid-template-rows .35s ease; }
+  .faq.on .ans { grid-template-rows:1fr; }
+  .faq .ans > div { overflow:hidden; }
+  .faq .pl { transition:transform .35s, background-color .35s; background:#0A1A4A; }
+  .faq.on .pl { transform:rotate(45deg); background:#FF6A13; }
+
+  .panel-anim { animation:panelIn .45s cubic-bezier(.22,1,.36,1); }
+  @keyframes panelIn { from { opacity:0; transform:translateY(24px) } to { opacity:1; transform:none } }
+  .rbar { height:0; opacity:0; transition:height 1.1s cubic-bezier(.22,1,.36,1), opacity .6s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation:none !important; transition-duration:.01ms !important; transition-delay:0s !important; }
+    html { scroll-behavior:auto; }
+  }
+</style>
+</head>
+<body>
+
+<div id="pre" class="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white">
+  <div class="flex overflow-hidden font-display text-5xl font-normal tracking-[0.14em] text-navy sm:text-7xl" id="preName"></div>
+  <div class="mt-8 h-[2px] w-56 overflow-hidden rounded-full bg-ink/10"><div id="preBar" class="h-full bg-orange" style="width:0"></div></div>
+  <p id="preNum" class="mt-4 font-display text-sm font-light tabular-nums text-ink/50">0%</p>
+</div>
+
+<div id="progress" class="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left scale-x-0 bg-orange"></div>
+<div id="glow" class="pointer-events-none fixed left-0 top-0 z-[1] hidden h-[500px] w-[500px] rounded-full" style="background:radial-gradient(circle,rgba(255,106,19,.07),transparent 60%)"></div>
+
+<header id="nav" class="fixed inset-x-0 top-0 z-50 px-3 sm:px-5" style="padding-top:calc(env(safe-area-inset-top,0px) + 12px)">
+  <nav id="navbar" class="mx-auto flex max-w-7xl items-center justify-between rounded-2xl border border-transparent px-4 py-2.5 transition-all duration-500 sm:px-5">
+    <a href="#top" class="flex items-center gap-2.5" aria-label="Home">
+      <svg viewBox="0 0 40 40" class="h-9 w-9" aria-hidden="true"><rect width="40" height="40" rx="12" fill="#FF6A13"/><circle cx="15" cy="11" r="4" fill="#fff"/><path d="M10 30 C 16 26, 20 22, 22 17" stroke="#0A1A4A" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M18 30 L 30 14 M 30 14 L 24 15 M 30 14 L 30 20" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      <span class="leading-none"><span class="block font-display text-lg font-medium tracking-[0.1em] text-navy">ITIKA</span><span class="block text-[11px] font-medium text-orange">e-commerce</span></span>
+    </a>
+    <div class="hidden items-center gap-1 lg:flex" id="navLinks"></div>
+    <div class="hidden items-center gap-4 lg:flex">
+      <a href="tel:9024831336" class="flex items-center gap-2 text-sm font-medium text-ink/70 hover:text-ink"><svg class="h-4 w-4 text-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>9024831336</a>
+      <a href="#contact" class="btn-primary !px-5 !py-2.5 !text-sm">Free audit</a>
+    </div>
+    <button id="menuBtn" class="grid h-10 w-10 place-items-center rounded-xl border border-ink/15 bg-white text-ink lg:hidden" aria-label="Open menu" aria-expanded="false">
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </nav>
+  <div id="mobileMenu" class="mx-auto mt-2 hidden max-w-7xl rounded-2xl border border-line bg-white/95 p-3 shadow-xl backdrop-blur-xl lg:hidden"></div>
+</header>
+
+<main id="top">
+<section id="hero" class="relative isolate min-h-[100svh] overflow-hidden bg-white pb-16 pt-28 sm:pt-32 lg:pb-24">
+  <div class="grid-lines absolute inset-0 -z-10"></div>
+  <div class="absolute -left-40 top-1/3 -z-10 h-[520px] w-[520px] rounded-full bg-[#DCE5FF] opacity-70 blur-[120px]" style="animation:blob1 16s ease-in-out infinite"></div>
+  <div class="absolute -right-32 -top-32 -z-10 h-[460px] w-[460px] rounded-full bg-orange/20 blur-[140px]" style="animation:blob2 14s ease-in-out infinite"></div>
+
+  <svg id="heroArrow" viewBox="0 0 1440 900" preserveAspectRatio="none" class="pointer-events-none absolute inset-0 -z-[5] h-full w-full" aria-hidden="true">
+    <path class="draw" pathLength="1" style="transition-delay:.2s" d="M -40 860 C 300 820, 520 700, 760 560 S 1180 260, 1390 110" fill="none" stroke="#FF6A13" stroke-width="70" stroke-linecap="round" opacity=".07"/>
+    <path class="draw" pathLength="1" style="transition-delay:.2s" d="M -40 860 C 300 820, 520 700, 760 560 S 1180 260, 1390 110" fill="none" stroke="#FF6A13" stroke-width="2" stroke-linecap="round" opacity=".75"/>
+    <path class="rise" style="transition-delay:2.3s" d="M 1340 112 L 1392 108 L 1372 158" fill="none" stroke="#FF6A13" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".8"/>
+  </svg>
+
+  <div class="container-x grid items-center gap-14 lg:grid-cols-[1.15fr_1fr] lg:gap-8">
+    <div id="heroText">
+      <span class="rise inline-flex items-center gap-2.5 rounded-full border border-ink/10 bg-white py-1.5 pl-2 pr-4 text-sm text-ink/70 shadow-sm" style="transition-delay:.2s">
+        <span class="relative flex h-2.5 w-2.5"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange opacity-75"></span><span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-orange"></span></span>
+        E-commerce growth partner
+      </span>
+      <h1 id="headline" class="mt-7 font-display text-[2.4rem] font-light leading-[1.08] tracking-[-0.02em] text-navy sm:text-6xl lg:text-[3.7rem] xl:text-[4.3rem]"></h1>
+      <p class="rise mt-6 font-display text-lg font-light text-navy sm:text-xl" style="transition-delay:.8s">
+        We grow your <span class="relative inline-block h-[1.35em] overflow-hidden align-bottom"><span id="rot" class="rot-word font-normal text-orange">Amazon</span></span> store, end to end.
+      </p>
+      <p class="rise mt-4 max-w-xl text-base leading-relaxed text-ink/60 sm:text-lg" style="transition-delay:.95s">Account management, listings that convert and sales strategies that drive results — for sellers on India’s biggest marketplaces.</p>
+      <div class="rise mt-9 flex flex-wrap items-center gap-3" style="transition-delay:1.1s">
+        <a href="#contact" class="btn-primary magnetic">Get a free account audit <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
+        <a href="tel:9024831336" class="btn-ghost magnetic"><svg class="h-4 w-4 text-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>Call us 9024831336</a>
+      </div>
+      <div class="rise mt-10 flex items-center gap-4" style="transition-delay:1.3s">
+        <div class="flex -space-x-2">
+          <span class="grid h-9 w-9 place-items-center rounded-full border-2 border-white text-xs font-medium text-white" style="background:#FF9A4D">R</span>
+          <span class="grid h-9 w-9 place-items-center rounded-full border-2 border-white text-xs font-medium text-white" style="background:#5B7BFF">P</span>
+          <span class="grid h-9 w-9 place-items-center rounded-full border-2 border-white text-xs font-medium text-white" style="background:#F43397">A</span>
+          <span class="grid h-9 w-9 place-items-center rounded-full border-2 border-white text-xs font-medium text-white" style="background:#22C55E">S</span>
+        </div>
+        <div><div class="text-sm tracking-[2px] text-orange">★★★★★</div><p class="mt-0.5 text-sm text-ink/55">Sellers across India trust us with their stores</p></div>
+      </div>
+    </div>
+
+    <div id="visual" class="relative mx-auto aspect-square w-full max-w-[540px] transition-transform duration-300 ease-out" style="transform:perspective(1200px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))">
+      <div class="absolute inset-[4%] rounded-full border border-dashed border-ink/10" style="animation:spin 80s linear infinite"></div>
+      <div class="absolute inset-[18%] rounded-full bg-orange/15 blur-[90px]"></div>
+
+      <div class="card-in card absolute left-[7%] right-[7%] top-[17%] rounded-[28px] p-5 shadow-[0_40px_80px_-30px_rgba(10,26,74,.35)] sm:p-6" style="transition-delay:.55s">
+        <div class="flex items-center justify-between">
+          <div class="flex gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-ink/10"></span><span class="h-2.5 w-2.5 rounded-full bg-ink/10"></span><span class="h-2.5 w-2.5 rounded-full bg-orange"></span></div>
+          <span class="text-xs text-ink/50">Store revenue, last 6 months</span>
+        </div>
+        <div class="mt-5 flex items-end justify-between gap-3">
+          <div><p class="text-xs text-ink/50">Total sales</p><p class="font-display text-3xl font-normal text-navy sm:text-4xl">₹48.6L</p></div>
+          <span class="flex items-center gap-1 rounded-full bg-emerald-50 px-3 py-1.5 text-sm font-medium text-emerald-700">↗ +212%</span>
+        </div>
+        <svg viewBox="0 0 400 170" class="mt-4 w-full overflow-visible" id="chart">
+          <defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FF6A13" stop-opacity=".22"/><stop offset="100%" stop-color="#FF6A13" stop-opacity="0"/></linearGradient></defs>
+        </svg>
+        <div class="mt-1 grid grid-cols-6 text-center text-[10px] text-ink/40"><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span></div>
+      </div>
+
+      <div class="pop absolute left-0 top-[3%] sm:-left-[4%]" style="transition-delay:1.4s"><div class="floaty" style="--f:-12px">
+        <div class="flex items-center gap-3 rounded-2xl border border-line bg-white px-4 py-3 text-ink shadow-xl shadow-navy/10">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-orange text-white"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2 2h3l2.7 12.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg></span>
+          <div><p class="text-[11px] text-ink/50">New orders</p><p class="font-display text-base font-normal">+1,248</p></div>
+        </div></div></div>
+
+      <div class="pop absolute right-0 top-[6%] sm:-right-[3%]" style="transition-delay:1.6s"><div class="floaty" style="--f:-8px;--d:6s">
+        <div class="flex items-center gap-3 rounded-2xl bg-navy px-4 py-3 shadow-xl shadow-navy/20">
+          <svg viewBox="0 0 44 44" class="h-11 w-11 -rotate-90"><circle cx="22" cy="22" r="18" stroke="rgba(255,255,255,.15)" stroke-width="4" fill="none"/><circle id="ring" cx="22" cy="22" r="18" stroke="#FF6A13" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="113.1" stroke-dashoffset="113.1" style="transition:stroke-dashoffset 1.6s cubic-bezier(.22,1,.36,1) 1.8s"/></svg>
+          <div><p class="text-[11px] text-white/60">Listing quality</p><p class="font-display text-base font-normal text-white"><span id="score">0</span>/100</p></div>
+        </div></div></div>
+
+      <div class="pop absolute bottom-[8%] left-[2%]" style="transition-delay:1.8s"><div class="floaty" style="--f:-9px;--d:5.5s">
+        <div class="flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-sm font-medium text-emerald-800 shadow-lg shadow-emerald-900/10">✓ Buy Box won</div>
+      </div></div>
+
+      <div class="pop absolute bottom-[2%] right-[4%]" style="transition-delay:2s"><div class="floaty" style="--f:-11px;--d:6.5s">
+        <div class="rounded-2xl border border-line bg-white p-3 shadow-xl shadow-navy/10">
+          <p class="mb-2 px-1 text-[11px] text-ink/50">Live on</p>
+          <div class="flex max-w-[220px] flex-wrap gap-1.5" id="liveOn"></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<div id="tape" class="relative z-10 -my-10 overflow-hidden py-14" aria-hidden="true">
+  <div class="-rotate-[3deg] scale-110 bg-orange py-4 text-white shadow-xl shadow-orange/20"><div id="tape1" class="flex whitespace-nowrap will-change-transform"></div></div>
+  <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 rotate-[2deg] scale-110 bg-navy py-3 text-white"><div id="tape2" class="flex whitespace-nowrap will-change-transform"></div></div>
+</div>
+
+<section id="platforms" class="relative bg-paper pb-24 pt-32 text-ink sm:pb-32 sm:pt-40">
+  <div class="container-x">
+    <div class="max-w-3xl">
+      <h2 class="h-section">Expert account management, on every marketplace that matters</h2>
+      <p class="mt-4 max-w-xl text-lg text-ink/60">Pick a marketplace to see what we take off your plate.</p>
+    </div>
+    <div class="mt-14 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
+      <div id="pTabs" role="tablist" aria-label="Marketplaces" class="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:overflow-visible lg:pb-0"></div>
+      <div class="relative min-h-[440px] overflow-hidden rounded-[32px] border border-line bg-white p-8 shadow-[0_30px_60px_-40px_rgba(10,26,74,.35)] sm:p-10">
+        <div id="pPanel" class="relative z-10"></div>
+        <div id="pGlow" class="absolute -bottom-32 -right-24 h-80 w-80 rounded-full opacity-25 blur-[100px] transition-colors duration-700"></div>
+        <span id="pNum" aria-hidden="true" class="pointer-events-none absolute -bottom-8 right-6 select-none font-display text-[9rem] font-light leading-none text-navy/[0.05]">01</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="relative overflow-hidden bg-white py-24 sm:py-32">
+  <div class="container-x">
+    <div class="grid gap-6 lg:grid-cols-2 lg:items-end">
+      <h2 class="h-section">What we do for your store</h2>
+      <p class="max-w-md text-lg text-ink/60 lg:justify-self-end">Three core services, run by people who live inside seller dashboards every day.</p>
+    </div>
+    <div id="svcList" class="mt-14 border-t border-line"></div>
+  </div>
+</section>
+
+<section class="bg-paper py-28 text-ink sm:py-40">
+  <div class="container-x" id="stmtWrap">
+    <p id="stmt" class="max-w-5xl font-display text-[1.7rem] font-light leading-[1.3] tracking-tight text-navy sm:text-[2.8rem] lg:text-[3.3rem]"></p>
+  </div>
+</section>
+
+<section id="results" class="relative overflow-hidden bg-white py-24 sm:py-32">
+  <div class="grid-lines absolute inset-0 opacity-70"></div>
+  <div class="container-x relative">
+    <div class="max-w-2xl">
+      <h2 class="h-section">Growth you can measure</h2>
+      <p class="mt-4 text-lg text-ink/60">Every number moves in one direction.</p>
+    </div>
+    <div id="resBox" class="relative mt-16">
+      <svg viewBox="0 0 1000 400" preserveAspectRatio="none" class="pointer-events-none absolute inset-x-0 top-0 z-10 hidden h-[420px] w-full md:block" aria-hidden="true">
+        <path class="draw" pathLength="1" style="transition-delay:.6s" d="M 60 330 C 250 300, 400 250, 520 190 S 800 60, 960 20" fill="none" stroke="#FF6A13" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <div id="resGrid" class="grid h-[600px] grid-cols-2 grid-rows-2 items-end gap-4 md:h-[420px] md:grid-cols-4 md:grid-rows-1 md:gap-6"></div>
+      <div class="mt-px h-px bg-ink/15"></div>
+    </div>
+  </div>
+</section>
+
+<section id="process" class="bg-paper py-24 text-ink sm:py-32">
+  <div class="container-x grid gap-14 lg:grid-cols-[0.8fr_1.2fr]">
+    <div class="lg:sticky lg:top-32 lg:self-start">
+      <h2 class="h-section">How we grow your store</h2>
+      <p class="mt-5 max-w-sm text-lg text-ink/60">Four steps, starting with a free audit of your store.</p>
+      <a href="#contact" class="btn-primary mt-8">Start with step one</a>
+    </div>
+    <ol id="procList" class="relative">
+      <span class="absolute bottom-6 left-[27px] top-6 w-[2px] bg-ink/10" aria-hidden="true"></span>
+      <span id="procFill" class="absolute bottom-6 left-[27px] top-6 w-[2px] origin-top scale-y-0 bg-orange" aria-hidden="true"></span>
+    </ol>
+  </div>
+</section>
+
+<section class="overflow-hidden bg-white py-24 sm:py-32">
+  <div class="container-x"><h2 class="h-section max-w-2xl">Sellers on working with us</h2></div>
+  <div class="marquee-wrap relative mt-14" style="-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)">
+    <div id="testi" class="marquee flex w-max gap-5"></div>
+  </div>
+</section>
+
+<section id="faq" class="bg-paper py-24 text-ink sm:py-32">
+  <div class="container-x grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+    <div>
+      <h2 class="h-section">Questions sellers ask us</h2>
+      <a href="tel:9024831336" class="mt-8 inline-flex items-center gap-3 rounded-2xl bg-white p-4 pr-6 shadow-sm ring-1 ring-line transition hover:ring-orange/40">
+        <span class="grid h-11 w-11 place-items-center rounded-xl bg-orange text-white"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+        <span><span class="block text-sm text-ink/55">Have a different question?</span><span class="block font-medium">Call 9024831336</span></span>
+      </a>
+    </div>
+    <div id="faqList" class="divide-y divide-line border-y border-line"></div>
+  </div>
+</section>
+
+<section id="contact" class="relative overflow-hidden bg-white py-24 sm:py-32">
+  <div class="grid-lines absolute inset-0 opacity-60"></div>
+  <div class="absolute -left-40 bottom-0 h-[500px] w-[500px] rounded-full bg-orange/15 blur-[140px]"></div>
+  <div class="container-x relative grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
+    <div>
+      <h2 class="font-display text-4xl font-light leading-[1.08] tracking-tight text-navy sm:text-[3.6rem]">Let’s grow your store</h2>
+      <p class="mt-6 max-w-md text-lg text-ink/60">Tell us about your business. We’ll call you back with a free account audit.</p>
+      <div class="mt-10 grid gap-3 sm:grid-cols-2" id="contactCards"></div>
+    </div>
+
+    <div id="ticket" class="relative opacity-0 transition-all duration-[900ms]" style="transform:translateY(40px) rotate(1.5deg)">
+      <div class="overflow-hidden rounded-[28px] border border-line bg-white text-ink shadow-[0_50px_100px_-40px_rgba(10,26,74,.45)]">
+        <div class="flex items-center justify-between bg-navy px-6 py-4 text-white sm:px-8">
+          <span class="font-display text-sm font-normal">Growth enquiry</span>
+          <span class="font-display text-sm font-light tabular-nums text-orange-light" id="ticketNo">#IT-0000</span>
+        </div>
+        <form id="leadForm" novalidate class="space-y-5 px-6 py-7 sm:px-8 sm:py-8">
+          <div class="grid gap-5 sm:grid-cols-2">
+            <label class="block"><span class="mb-1.5 block text-sm text-ink/65">Your name</span><input name="name" class="inp" placeholder="Rohit Sharma" autocomplete="name"><span class="err mt-1.5 hidden text-xs font-medium text-red-600"></span></label>
+            <label class="block"><span class="mb-1.5 block text-sm text-ink/65">Mobile number</span><div class="relative"><span class="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[15px] text-ink/45">+91</span><input name="phone" class="inp pl-12" placeholder="98765 43210" inputmode="tel" autocomplete="tel"></div><span class="err mt-1.5 hidden text-xs font-medium text-red-600"></span></label>
+            <label class="block"><span class="mb-1.5 flex justify-between text-sm text-ink/65">Email <span class="text-xs text-ink/40">Optional</span></span><input name="email" type="email" class="inp" placeholder="you@brand.com" autocomplete="email"><span class="err mt-1.5 hidden text-xs font-medium text-red-600"></span></label>
+            <label class="block"><span class="mb-1.5 flex justify-between text-sm text-ink/65">Brand / business name <span class="text-xs text-ink/40">Optional</span></span><input name="business" class="inp" placeholder="Your store name"></label>
+          </div>
+          <div><span class="mb-2 block text-sm text-ink/65">Where do you sell (or want to)?</span><div id="chips" class="flex flex-wrap gap-2"></div></div>
+          <label class="block"><span class="mb-1.5 flex justify-between text-sm text-ink/65">Monthly online sales <span class="text-xs text-ink/40">Optional</span></span>
+            <select name="revenue" class="inp"><option value="">Select a range</option><option>Just starting</option><option>Under ₹1 lakh / month</option><option>₹1–5 lakh / month</option><option>₹5–20 lakh / month</option><option>₹20 lakh+ / month</option></select></label>
+          <label class="block"><span class="mb-1.5 flex justify-between text-sm text-ink/65">What do you need help with? <span class="text-xs text-ink/40">Optional</span></span><textarea name="message" class="inp min-h-[96px] resize-y" placeholder="E.g. my listings get views but few orders…"></textarea></label>
+          <div class="-mx-6 border-t-2 border-dashed border-ink/10 sm:-mx-8"></div>
+          <div class="flex flex-wrap items-center justify-between gap-4 pt-1">
+            <div class="barcode h-10 w-32 opacity-70" aria-hidden="true"></div>
+            <button type="submit" class="btn-primary" id="sendBtn">Send my enquiry</button>
+          </div>
+        </form>
+        <div id="done" class="hidden px-8 py-16 text-center">
+          <svg viewBox="0 0 80 80" class="mx-auto h-24 w-24">
+            <circle class="draw" pathLength="1" style="transition-duration:.7s" cx="40" cy="40" r="36" fill="none" stroke="#FF6A13" stroke-width="3"/>
+            <path class="draw" pathLength="1" style="transition-duration:.5s;transition-delay:.5s" d="M24 41 L35 52 L57 29" fill="none" stroke="#0A1A4A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3 class="mt-6 font-display text-2xl font-normal text-navy">Enquiry received</h3>
+          <p class="mx-auto mt-3 max-w-sm text-ink/65">Thanks! Our team will reach out within 24 hours.</p>
+          <p class="mx-auto mt-4 max-w-sm rounded-xl bg-paper px-4 py-2 text-xs text-ink/55">This is a design preview, so nothing was sent. On the live site this saves the lead to the admin panel and emails you.</p>
+          <button id="again" class="mt-6 text-sm font-medium text-orange underline-offset-4 hover:underline">Send another enquiry</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="foot" class="relative overflow-hidden border-t border-line bg-paper pt-20">
+  <div class="container-x grid gap-10 pb-12 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div>
+      <span class="flex items-center gap-2.5"><svg viewBox="0 0 40 40" class="h-9 w-9"><rect width="40" height="40" rx="12" fill="#FF6A13"/><circle cx="15" cy="11" r="4" fill="#fff"/><path d="M10 30 C 16 26, 20 22, 22 17" stroke="#0A1A4A" stroke-width="4" stroke-linecap="round" fill="none"/><path d="M18 30 L 30 14 M 30 14 L 24 15 M 30 14 L 30 20" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg><span class="leading-none"><span class="block font-display text-lg font-medium tracking-[0.1em] text-navy">ITIKA</span><span class="block text-[11px] font-medium text-orange">e-commerce</span></span></span>
+      <p class="mt-5 max-w-sm text-ink/55">Itika E-Commerce helps sellers grow on Amazon, Flipkart, Meesho, Myntra and AJIO with account management, listings and sales strategy.</p>
+    </div>
+    <div><p class="font-display text-sm font-normal text-navy">Explore</p>
+      <ul class="mt-4 space-y-2.5 text-ink/60"><li><a href="#platforms" class="hover:text-orange">Marketplaces</a></li><li><a href="#services" class="hover:text-orange">Services</a></li><li><a href="#process" class="hover:text-orange">Process</a></li><li><a href="#faq" class="hover:text-orange">FAQ</a></li><li><a href="#contact" class="hover:text-orange">Free audit</a></li></ul></div>
+    <div><p class="font-display text-sm font-normal text-navy">Contact</p>
+      <ul class="mt-4 space-y-2.5 text-ink/60"><li><a href="tel:9024831336" class="hover:text-orange">9024831336</a></li><li><a href="mailto:itikauppdhayay@gmail.com" class="break-all hover:text-orange">itikauppdhayay@gmail.com</a></li><li><a href="https://instagram.com/itika.ecommerce" target="_blank" rel="noreferrer" class="hover:text-orange">@itika.ecommerce</a></li></ul></div>
+  </div>
+  <div class="container-x flex flex-wrap items-center justify-between gap-3 border-t border-line py-6 text-sm text-ink/45"><span>© <span id="yr"></span> Itika E-Commerce. All rights reserved.</span><a href="#top" class="hover:text-ink">Back to top</a></div>
+  <div class="pointer-events-none select-none overflow-hidden" aria-hidden="true"><p id="bigName" class="text-center font-display text-[24vw] font-light leading-[0.8] tracking-tight text-navy/[0.06]">ITIKA</p></div>
+</footer>
+
+<a href="https://wa.me/919024831336" target="_blank" rel="noreferrer" aria-label="Chat with us on WhatsApp" class="fixed right-5 z-50 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-[0_10px_30px_-5px_rgba(37,211,102,.5)] transition-transform hover:scale-110" style="bottom:calc(env(safe-area-inset-bottom,0px) + 20px)">
+  <span class="absolute inset-0 animate-ping rounded-full bg-[#25D366] opacity-25"></span>
+  <svg class="relative h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/></svg>
+</a>
+
+<script>
+const PLATFORMS = [
+  { name:'Amazon', color:'#FF9900', desc:'From Seller Central setup to Buy Box wins — we keep your Amazon account healthy, visible and selling.', h:['Seller Central setup & brand registry','A+ content & keyword-rich listings','Sponsored ads management','Account health & reinstatement support'] },
+  { name:'Flipkart', color:'#2874F0', desc:'We optimise your catalogue and pricing so your products show up — and win — in Flipkart search.', h:['Catalogue upload & QC','Smart pricing & sale events','Flipkart ads (PLA) campaigns','Returns & claims handling'] },
+  { name:'Meesho', color:'#F43397', desc:'High-volume, low-margin done right: we tune your Meesho catalogue for reach and repeat orders.', h:['Bulk catalogue creation','Price & shipping optimisation','Quality score improvement','RTO and return reduction'] },
+  { name:'Myntra', color:'#FF3F6C', desc:'Fashion sells on visuals and timing. We handle style codes, imagery and the big sale calendars.', h:['Style code & size chart setup','Image & content guidelines','End of Reason Sale planning','Inventory sync'] },
+  { name:'AJIO', color:'#B08A3E', desc:'Premium positioning for your brand on AJIO, with listings and campaigns that match the audience.', h:['Vendor onboarding','Premium listing content','Campaign participation','Order & payment reconciliation'] },
+];
+const SERVICES = [
+  { icon:'<path d="M3 17l2 2 4-4M3 7l2 2 4-4M13 6h8M13 12h8M13 18h8"/>', title:'Listings', tag:'Optimised & conversion focused', desc:'Titles, bullets, keywords, images and A+ content written to rank in search and turn views into orders.', pts:['Keyword research','SEO titles & bullets','A+ / enhanced content','Catalogue cleanup'] },
+  { icon:'<path d="M22 7 13.5 15.5 8.5 10.5 2 17"/><path d="M16 7h6v6"/>', title:'Sales growth', tag:'Strategies that drive results', desc:'Ads, pricing, deals and sale-event planning built around your margins — not vanity numbers.', pts:['Ads / PPC management','Pricing strategy','Sale event planning','Monthly growth reports'] },
+  { icon:'<path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>', title:'Account support', tag:'Reliable support, always', desc:'Account health, claims, policy issues and day-to-day operations handled so you can focus on product.', pts:['Account health monitoring','Claims & reimbursements','Policy & suspension help','Dedicated account manager'] },
+];
+const RESULTS = [ { v:5, s:'', l:'Marketplaces managed' }, { v:100, s:'+', l:'Sellers supported' }, { v:3, s:'x', l:'Average sales growth' }, { v:24, s:'/7', l:'Account support' } ];
+const PROCESS = [
+  ['Free account audit','We review your listings, ads, pricing and account health and show you exactly where sales are leaking.'],
+  ['Growth plan','You get a clear plan for each marketplace with priorities, timelines and the numbers we will move.'],
+  ['Optimise & launch','We rewrite listings, fix catalogue issues, set up campaigns and get your store sale-ready.'],
+  ['Scale every month','Weekly tracking, monthly reports and constant testing to push your sales higher.'],
+];
+const TESTI = [
+  ['Rohit Sharma','Home décor seller, Amazon','Our listings finally show up on page one. Orders doubled in the first three months.'],
+  ['Priya Mehta','Ethnic wear brand, Myntra & AJIO','They handled the whole Myntra onboarding and sale planning. Super responsive team.'],
+  ['Ankit Verma','Electronics accessories, Flipkart','Ads were burning money before. Now every rupee is tracked and ROI is clear.'],
+  ['Sneha Gupta','Kidswear, Meesho','Returns dropped and our catalogue quality score went up. Highly recommended.'],
+];
+const FAQ = [
+  ['Which marketplaces do you manage?','Amazon, Flipkart, Meesho, Myntra and AJIO. We can manage one or all of them for you.'],
+  ['Do you help new sellers get started?','Yes. We handle registration, GST and documentation guidance, catalogue setup and your first campaigns.'],
+  ['What does the free audit include?','A review of your listings, keywords, pricing, ads and account health, plus a short list of the fixes that will move sales fastest.'],
+  ['How do you charge?','We offer monthly management plans based on the number of marketplaces and SKUs. Message us for a quote that fits your store.'],
+  ['Will I still have access to my seller accounts?','Always. Your accounts stay yours — we work as an extension of your team with full transparency.'],
+];
+const $ = (s, r=document) => r.querySelector(s);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+const phoneSvg = '<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>';
+
+/* nav */
+const LINKS = [['Marketplaces','#platforms'],['Services','#services'],['Results','#results'],['Process','#process'],['FAQ','#faq']];
+$('#navLinks').innerHTML = LINKS.map(([l,h]) => `<a href="${h}" class="group relative px-4 py-2 text-sm font-medium text-ink/60 transition-colors hover:text-ink">${l}<span class="absolute inset-x-4 bottom-1 h-px origin-left scale-x-0 bg-orange transition-transform duration-300 group-hover:scale-x-100"></span></a>`).join('');
+$('#mobileMenu').innerHTML = LINKS.map(([l,h]) => `<a href="${h}" class="block rounded-xl px-4 py-3 font-display text-lg font-light text-ink hover:bg-paper">${l}</a>`).join('') + '<a href="#contact" class="btn-primary mt-2 w-full justify-center">Get a free audit</a>';
+$('#menuBtn').onclick = () => { const m = $('#mobileMenu'); m.classList.toggle('hidden'); $('#menuBtn').setAttribute('aria-expanded', !m.classList.contains('hidden')); };
+$('#mobileMenu').addEventListener('click', e => { if (e.target.closest('a')) $('#mobileMenu').classList.add('hidden'); });
+
+/* headline */
+let wi = 0;
+$('#headline').innerHTML = [['From','listings'],['to','leadership.']].map((line, li) =>
+  `<span class="block">${line.map(w => { const d = .35 + (wi++) * .08; return `<span class="w-mask"><span class="w-in ${li ? 'text-orange-grad font-normal' : ''}" style="transition-delay:${d}s">${w}</span></span>`; }).join('')}</span>`).join('');
+
+/* chart */
+const BARS = [40,55,48,80,98,132];
+const pts = BARS.map((h,i) => [38 + i*64, 160 - h - 6]);
+const line = pts.map((p,i) => `${i?'L':'M'}${p[0]},${p[1]}`).join(' ');
+$('#chart').insertAdjacentHTML('beforeend',
+  [40,80,120].map(y => `<line x1="0" x2="400" y1="${y}" y2="${y}" stroke="rgba(10,26,74,.07)"/>`).join('') +
+  BARS.map((h,i) => `<rect class="bar" style="transition-delay:${1.1 + i*.09}s" x="${20+i*64}" y="${160-h}" width="36" height="${h}" rx="6" fill="${i===5?'#FF6A13':i%2?'#0A1A4A':'#DCE3F2'}"/>`).join('') +
+  `<path class="rise" style="transition-delay:2.1s" d="${line} L358,160 L38,160 Z" fill="url(#area)"/>` +
+  `<path class="draw" pathLength="1" style="transition-delay:1.6s;transition-duration:1.4s" d="${line}" fill="none" stroke="#FF6A13" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>` +
+  `<g class="pop" style="transition-delay:2.8s"><circle cx="${pts[5][0]}" cy="${pts[5][1]}" r="10" fill="#FF6A13" opacity=".25"><animate attributeName="r" values="6;14;6" dur="2s" repeatCount="indefinite"/></circle><circle cx="${pts[5][0]}" cy="${pts[5][1]}" r="5" fill="#fff" stroke="#FF6A13" stroke-width="3"/></g>`);
+$('#liveOn').innerHTML = PLATFORMS.map(p => `<span class="rounded-full bg-paper px-2.5 py-1 text-[11px] font-medium text-ink/80">${p.name}</span>`).join('');
+
+function countUp(el, to, dur=2000, delay=0) {
+  const fmt = v => Math.round(v).toLocaleString('en-IN');
+  if (reduce) { el.textContent = fmt(to); return; }
+  setTimeout(() => { const t0 = performance.now(); const step = t => { const k = Math.min(1,(t-t0)/dur); el.textContent = fmt(to*(1-Math.pow(1-k,4))); if (k<1) requestAnimationFrame(step); }; requestAnimationFrame(step); }, delay);
+}
+
+/* preloader */
+$('#preName').innerHTML = 'ITIKA'.split('').map((c,i) => `<span class="pre-ch" style="transition-delay:${.1+i*.07}s">${c}</span>`).join('');
+function go() { document.body.classList.add('go'); $('#ring').style.strokeDashoffset = 113.1 * .02; countUp($('#score'), 98, 1600, reduce ? 0 : 1800); }
+if (reduce) { $('#pre').remove(); go(); }
+else {
+  document.documentElement.style.overflow = 'hidden';
+  requestAnimationFrame(() => $('#pre').classList.add('in'));
+  const t0 = performance.now();
+  (function tick(t) { const k = Math.min(1,(t-t0)/1300); const n = Math.round(k*100); $('#preBar').style.width = n+'%'; $('#preNum').textContent = n+'%'; if (k<1) requestAnimationFrame(tick); })(t0);
+  setTimeout(() => { $('#pre').classList.add('out'); document.documentElement.style.overflow = ''; go(); }, 1500);
+  setTimeout(() => $('#pre').remove(), 2600);
+}
+
+/* rotator */
+let ri = 0;
+setInterval(() => {
+  const el = $('#rot'); el.classList.add('rot-out');
+  setTimeout(() => { ri = (ri+1) % PLATFORMS.length; el.textContent = PLATFORMS[ri].name; el.classList.remove('rot-out'); el.classList.add('rot-pre'); void el.offsetWidth; el.classList.remove('rot-pre'); }, 420);
+}, 2200);
+
+/* tilt, magnetic, glow */
+const hero = $('#hero'), vis = $('#visual');
+hero.addEventListener('mousemove', e => { const r = hero.getBoundingClientRect(); const x = (e.clientX-r.left)/r.width-.5, y = (e.clientY-r.top)/r.height-.5; vis.style.setProperty('--rx', (-y*14)+'deg'); vis.style.setProperty('--ry', (x*18)+'deg'); });
+hero.addEventListener('mouseleave', () => { vis.style.setProperty('--rx','0deg'); vis.style.setProperty('--ry','0deg'); });
+document.querySelectorAll('.magnetic').forEach(b => {
+  b.style.transition = 'transform .25s cubic-bezier(.22,1,.36,1), background-color .2s, border-color .2s';
+  b.addEventListener('mousemove', e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX-r.left-r.width/2)*.3}px,${(e.clientY-r.top-r.height/2)*.3}px)`; });
+  b.addEventListener('mouseleave', () => b.style.transform = '');
+});
+if (matchMedia('(pointer: fine)').matches && !reduce) {
+  const g = $('#glow'); g.classList.remove('hidden'); let gx=-500, gy=-500, tx=-500, ty=-500;
+  addEventListener('mousemove', e => { tx = e.clientX-250; ty = e.clientY-250; });
+  (function loop(){ gx += (tx-gx)*.12; gy += (ty-gy)*.12; g.style.transform = `translate(${gx}px,${gy}px)`; requestAnimationFrame(loop); })();
+}
+
+/* tapes */
+const tapeItems = ['Amazon','Flipkart','Meesho','Myntra','AJIO','Listings','Sales growth','Account support'];
+const star = c => `<svg viewBox="0 0 24 24" class="h-4 w-4 ${c}" fill="currentColor"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg>`;
+const strip = dark => [...tapeItems,...tapeItems,...tapeItems].map((t,i) => `<span class="flex shrink-0 items-center gap-6 px-6"><span class="font-display text-2xl font-light sm:text-4xl ${i%2 && !dark ? 'text-outline' : ''}">${t}</span>${star(dark?'text-orange':'text-white')}</span>`).join('');
+$('#tape1').innerHTML = strip(false); $('#tape2').innerHTML = strip(true);
+
+/* platforms */
+let pa = 0;
+function renderPlatforms() {
+  $('#pTabs').innerHTML = PLATFORMS.map((p,i) => `
+    <button role="tab" aria-selected="${i===pa}" data-i="${i}" class="relative flex shrink-0 items-center gap-4 rounded-2xl px-5 py-4 text-left transition-colors duration-300 lg:px-6 lg:py-5 ${i===pa ? 'bg-navy text-white' : 'text-ink/40 hover:text-ink'}">
+      <span class="h-3 w-3 shrink-0 rounded-full" style="background:${p.color}"></span>
+      <span class="font-display text-xl font-light sm:text-2xl lg:text-[2.1rem]">${p.name}</span>
+      <svg class="ml-auto hidden h-6 w-6 transition-all duration-300 lg:block ${i===pa ? 'rotate-45 text-orange opacity-100' : 'opacity-0'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 17 17 7M7 7h10v10"/></svg>
+    </button>`).join('');
+  const p = PLATFORMS[pa];
+  $('#pPanel').innerHTML = `<div class="panel-anim">
+    <span class="font-display text-5xl font-normal sm:text-6xl" style="color:${p.color}">${p.name}</span>
+    <p class="mt-6 max-w-lg text-lg leading-relaxed text-ink/65">${p.desc}</p>
+    <ul class="mt-8 grid gap-3 sm:grid-cols-2">${p.h.map((h,i) => `<li class="panel-anim flex items-start gap-3 rounded-xl bg-paper p-3.5 text-sm text-ink/80" style="animation-delay:${.1+i*.06}s;animation-fill-mode:both"><span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full" style="background:${p.color}"><svg class="h-3 w-3 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><path d="M20 6 9 17l-5-5"/></svg></span>${esc(h)}</li>`).join('')}</ul>
+    <a href="#contact" class="btn-primary mt-9">Grow my ${p.name} store</a></div>`;
+  $('#pGlow').style.background = p.color;
+  $('#pNum').textContent = String(pa+1).padStart(2,'0');
+}
+renderPlatforms();
+$('#pTabs').addEventListener('click', e => { const b = e.target.closest('button'); if (b) { pa = +b.dataset.i; renderPlatforms(); } });
+$('#pTabs').addEventListener('mouseover', e => { const b = e.target.closest('button'); if (b && +b.dataset.i !== pa && matchMedia('(pointer: fine)').matches) { pa = +b.dataset.i; renderPlatforms(); } });
+
+/* services */
+$('#svcList').innerHTML = SERVICES.map((s,i) => `
+  <div class="svc relative overflow-hidden border-b border-line ${i===0?'on':''}">
+    <div class="sweep absolute inset-0 bg-navy"></div>
+    <button class="relative flex w-full items-center gap-5 py-7 text-left sm:gap-8 sm:px-6 sm:py-9">
+      <span class="ico grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-paper text-orange"><svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${s.icon}</svg></span>
+      <span class="flex-1"><span class="ttl block font-display text-2xl font-light text-navy sm:text-4xl lg:text-[2.9rem]">${s.title}</span><span class="tag mt-1 block text-sm text-ink/50 sm:text-base">${s.tag}</span></span>
+      <span class="plus grid h-11 w-11 shrink-0 place-items-center rounded-full border border-ink/15 text-ink"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg></span>
+    </button>
+    <div class="body relative"><div><div class="grid gap-6 pb-9 sm:px-6 sm:pl-[7.5rem] lg:grid-cols-[1fr_1.1fr]">
+      <p class="max-w-md text-base leading-relaxed text-white/80 sm:text-lg">${s.desc}</p>
+      <div class="flex flex-wrap content-start gap-2">${s.pts.map(p => `<span class="rounded-full border border-white/20 px-4 py-2 text-sm text-white">${esc(p)}</span>`).join('')}</div>
+    </div></div></div>
+  </div>`).join('');
+const svcs = [...document.querySelectorAll('.svc')];
+svcs.forEach(el => {
+  const open = () => svcs.forEach(x => x.classList.toggle('on', x === el));
+  el.addEventListener('mouseenter', () => matchMedia('(pointer: fine)').matches && open());
+  $('button', el).addEventListener('click', () => el.classList.contains('on') ? el.classList.remove('on') : open());
+});
+
+/* statement */
+const sw = [...'We don’t just manage accounts. We build marketplace brands that rank higher, convert better and'.split(' ').map(w => [w,0]), ...'grow every single month.'.split(' ').map(w => [w,1])];
+$('#stmt').innerHTML = sw.map(([w,h]) => `<span class="sw mr-[0.25em] inline-block ${h?'text-orange':''}" style="opacity:.12">${w}</span>`).join('');
+const swEls = [...document.querySelectorAll('.sw')];
+
+/* results */
+const STY = ['bg-white text-navy ring-1 ring-line','bg-orange text-white','bg-[#DCE3F2] text-navy','bg-navy text-white'];
+const HEI = [38,56,76,100];
+$('#resGrid').innerHTML = RESULTS.map((r,i) => `<div class="flex h-full flex-col justify-end"><div class="rbar flex min-h-0 flex-col justify-between overflow-hidden rounded-b-xl rounded-t-[28px] p-5 sm:p-6 ${STY[i]}" data-h="${HEI[i]}" style="transition-delay:${i*.15}s"><p class="font-display text-4xl font-light tracking-tight sm:text-5xl lg:text-6xl"><span class="cnt" data-v="${r.v}">0</span>${r.s}</p><p class="mt-3 text-sm opacity-75 sm:text-base">${r.l}</p></div></div>`).join('');
+
+/* process */
+$('#procList').insertAdjacentHTML('beforeend', PROCESS.map(([t,d],i) => `<li class="proc relative flex gap-6 pb-14 opacity-30 transition-opacity duration-500 last:pb-0 sm:gap-8"><span class="relative z-10 grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-navy font-display text-lg font-light text-white shadow-lg shadow-navy/20">${String(i+1).padStart(2,'0')}</span><div class="pt-2"><h3 class="font-display text-xl font-normal text-navy sm:text-2xl">${t}</h3><p class="mt-3 max-w-lg leading-relaxed text-ink/60">${d}</p></div></li>`).join(''));
+
+/* testimonials */
+const card = ([n,r,q]) => `<figure class="w-[320px] shrink-0 rounded-3xl border border-line bg-white p-7 shadow-sm sm:w-[400px]"><div class="tracking-[2px] text-orange">★★★★★</div><blockquote class="mt-5 text-lg leading-relaxed text-ink/80">“${q}”</blockquote><figcaption class="mt-6 flex items-center gap-3"><span class="grid h-11 w-11 place-items-center rounded-full bg-paper text-sm font-medium text-navy">${n.split(' ').map(x=>x[0]).join('')}</span><span><span class="block font-medium text-ink">${n}</span><span class="block text-sm text-ink/50">${r}</span></span></figcaption></figure>`;
+$('#testi').innerHTML = [...TESTI,...TESTI].map(card).join('');
+
+/* faq */
+$('#faqList').innerHTML = FAQ.map(([q,a],i) => `<div class="faq ${i===0?'on':''}"><button class="flex w-full items-center justify-between gap-6 py-6 text-left"><span class="font-display text-lg font-light text-navy sm:text-xl">${q}</span><span class="pl grid h-9 w-9 shrink-0 place-items-center rounded-full text-white"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></span></button><div class="ans"><div><p class="max-w-2xl pb-6 leading-relaxed text-ink/60">${a}</p></div></div></div>`).join('');
+document.querySelectorAll('.faq').forEach(f => $('button', f).onclick = () => { const on = f.classList.contains('on'); document.querySelectorAll('.faq').forEach(x => x.classList.remove('on')); if (!on) f.classList.add('on'); });
+
+/* contact cards */
+const ic = { phone:phoneSvg, mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>', wa:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/>', ig:'<rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/>' };
+$('#contactCards').innerHTML = [['phone','Call us','9024831336','tel:9024831336'],['mail','Email','itikauppdhayay@gmail.com','mailto:itikauppdhayay@gmail.com'],['wa','WhatsApp','Chat with us','https://wa.me/919024831336'],['ig','Instagram','@itika.ecommerce','https://instagram.com/itika.ecommerce']].map(([k,l,v,h]) => `<a href="${h}" ${h.startsWith('http')?'target="_blank" rel="noreferrer"':''} class="group flex items-center gap-4 rounded-2xl border border-line bg-white p-4 transition hover:border-orange/50 hover:shadow-md"><span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-orange/10 text-orange transition group-hover:bg-orange group-hover:text-white"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${ic[k]}</svg></span><span class="min-w-0"><span class="block text-xs text-ink/50">${l}</span><span class="block truncate font-medium text-ink">${v}</span></span></a>`).join('');
+
+/* form */
+const chosen = new Set();
+$('#chips').innerHTML = PLATFORMS.map(p => `<button type="button" data-p="${p.name}" aria-pressed="false" class="chip flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-sm font-medium text-ink/70 transition hover:border-ink/40"><span class="ck hidden text-orange">✓</span>${p.name}</button>`).join('');
+$('#chips').onclick = e => { const b = e.target.closest('.chip'); if (!b) return; const p = b.dataset.p; const on = !chosen.has(p); on ? chosen.add(p) : chosen.delete(p); b.setAttribute('aria-pressed', on); b.classList.toggle('bg-navy', on); b.classList.toggle('text-white', on); b.classList.toggle('border-navy', on); b.classList.toggle('text-ink/70', !on); $('.ck', b).classList.toggle('hidden', !on); };
+const newTicket = () => $('#ticketNo').textContent = '#IT-' + Math.floor(1000 + Math.random()*9000);
+newTicket();
+const form = $('#leadForm');
+function setErr(name, msg) { const inp = form.elements[name]; const s = $('.err', inp.closest('label')); s.textContent = msg || ''; s.classList.toggle('hidden', !msg); inp.classList.toggle('!border-red-400', !!msg); }
+form.onsubmit = e => {
+  e.preventDefault();
+  const f = Object.fromEntries(new FormData(form));
+  const errs = {
+    name: f.name.trim().length < 2 ? 'Enter your name.' : '',
+    phone: !/^(\+?91)?[6-9]\d{9}$/.test(f.phone.replace(/[^\d+]/g,'')) ? 'Enter a valid 10-digit mobile number.' : '',
+    email: f.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email) ? 'Enter a valid email or leave it empty.' : '',
+  };
+  Object.entries(errs).forEach(([k,v]) => setErr(k, v));
+  if (Object.values(errs).some(Boolean)) return;
+  const btn = $('#sendBtn'); btn.disabled = true; btn.textContent = 'Sending…';
+  setTimeout(() => {
+    form.classList.add('hidden'); const d = $('#done'); d.classList.remove('hidden', 'seen'); void d.offsetWidth; d.classList.add('seen');
+    btn.disabled = false; btn.textContent = 'Send my enquiry'; form.reset(); document.querySelectorAll('.chip[aria-pressed="true"]').forEach(b => b.click());
+  }, 900);
+};
+$('#again').onclick = () => { $('#done').classList.add('hidden'); form.classList.remove('hidden'); newTicket(); };
+
+/* in view */
+const io = new IntersectionObserver(es => es.forEach(en => {
+  if (!en.isIntersecting) return;
+  const t = en.target;
+  if (t.id === 'resBox') { t.classList.add('seen'); t.querySelectorAll('.rbar').forEach(b => { b.style.height = b.dataset.h + '%'; b.style.opacity = 1; b.style.minHeight = '150px'; }); t.querySelectorAll('.cnt').forEach(c => countUp(c, +c.dataset.v)); }
+  if (t.id === 'ticket') { t.style.opacity = 1; t.style.transform = 'none'; }
+  io.unobserve(t);
+}), { rootMargin:'0px 0px -20% 0px' });
+io.observe($('#resBox')); io.observe($('#ticket'));
+const procIO = new IntersectionObserver(es => es.forEach(en => en.target.classList.toggle('opacity-30', !en.isIntersecting)), { rootMargin:'-45% 0px -45% 0px' });
+document.querySelectorAll('.proc').forEach(p => procIO.observe(p));
+
+/* scroll-linked */
+const clamp = (v,a=0,b=1) => Math.max(a, Math.min(b, v));
+function prog(el, s, e) { const r = el.getBoundingClientRect(), vh = innerHeight; return clamp((vh*s - r.top) / (r.height + vh*s - vh*e)); }
+let ticking = false;
+function onScroll() {
+  ticking = false;
+  const y = scrollY, H = document.documentElement.scrollHeight - innerHeight;
+  $('#progress').style.transform = `scaleX(${H>0 ? y/H : 0})`;
+  const nb = $('#navbar'), s = y > 30;
+  ['bg-white/85','backdrop-blur-xl','shadow-lg','shadow-navy/5','border-line'].forEach(c => nb.classList.toggle(c, s)); nb.classList.toggle('border-transparent', !s);
+  if (reduce) { swEls.forEach(w => w.style.opacity = 1); $('#procFill').style.transform = 'scaleY(1)'; return; }
+  const hp = clamp(y / innerHeight);
+  $('#heroText').style.transform = `translateY(${hp*140}px)`; $('#heroText').style.opacity = 1 - hp/0.8;
+  $('#heroArrow').style.transform = `translateY(${-hp*120}px)`;
+  const tp = prog($('#tape'), 1, 0);
+  $('#tape1').style.transform = `translateX(${-tp*20}%)`; $('#tape2').style.transform = `translateX(${-20 + tp*20}%)`;
+  const sp = prog($('#stmtWrap'), .85, .45);
+  swEls.forEach((w,i) => { const k = clamp(sp*swEls.length - i); w.style.opacity = .12 + .88*k; w.style.transform = `translateY(${8*(1-k)}px)`; });
+  $('#procFill').style.transform = `scaleY(${prog($('#procList'), .7, .6)})`;
+  $('#bigName').style.transform = `translateY(${40 - prog($('#foot'), 1, 1)*40}%)`;
+}
+addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive:true });
+addEventListener('resize', onScroll);
+onScroll();
+$('#yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

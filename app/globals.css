@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { scroll-behavior: smooth; }
+body { background: #FFFFFF; color: #0F1B3D; overflow-x: hidden; }
+::selection { background: #FF6A13; color: #fff; }
+
+:focus-visible { outline: 2px solid #FF6A13; outline-offset: 3px; border-radius: 8px; }
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-7xl px-5 sm:px-8; }
+  .btn-primary {
+    @apply relative inline-flex items-center gap-2 rounded-full bg-orange px-6 py-3.5 text-[15px] font-medium text-white
+      shadow-[0_12px_30px_-12px_rgba(255,106,19,.8)] transition-colors hover:bg-orange-dark;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-full border border-ink/15 bg-white px-6 py-3.5 text-[15px] font-medium text-ink
+      transition-colors hover:border-ink/40;
+  }
+  .h-section { @apply font-display text-3xl font-normal leading-[1.12] tracking-tight text-ink sm:text-4xl lg:text-[2.9rem]; }
+}
+
+.text-orange-grad {
+  background: linear-gradient(100deg, #FF6A13 0%, #FFAE73 50%, #FF6A13 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: shine 5s linear infinite;
+}
+@keyframes shine { to { background-position: 200% center; } }
+
+.grid-lines {
+  background-image:
+    linear-gradient(rgba(10,26,74,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10,26,74,.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 60% 40%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 60% 40%, #000 20%, transparent 75%);
+}
+
+.grain::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.glass-card {
+  background: rgba(255,255,255,.85);
+  border: 1px solid #E1E6EF;
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+
+.text-outline { -webkit-text-stroke: 1.2px currentColor; color: transparent; }
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee { animation: marquee var(--speed, 32s) linear infinite; }
+.marquee-pause:hover .marquee { animation-play-state: paused; }
+
+/* ticket-style perforation on the lead form */
+.perforated {
+  -webkit-mask: radial-gradient(circle 10px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 10px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+  mask: radial-gradient(circle 10px at 0 50%, transparent 98%, #000) left / 51% 100% no-repeat,
+        radial-gradient(circle 10px at 100% 50%, transparent 98%, #000) right / 51% 100% no-repeat;
+}
+.barcode {
+  background: repeating-linear-gradient(90deg, #0F1B3D 0 2px, transparent 2px 4px, #0F1B3D 4px 5px, transparent 5px 8px, #0F1B3D 8px 11px, transparent 11px 13px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee, .text-orange-grad { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
